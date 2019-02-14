@@ -1,4 +1,4 @@
-#Digitalocean Manual Setup for Craft2
+# Digitalocean Manual Setup for Craft2
 
 Create Sudo User
 `apt update && apt upgrade`
@@ -10,7 +10,7 @@ Create Sudo User
 `su - dev`
 `sudo ls -la /root` (to test sudo privileges)
 
-##Initial Server build
+## Initial Server build
 
 `sudo apt update && sudo apt upgrade -y`
 
@@ -41,7 +41,7 @@ Note: php7.0-mbstring and nodejs-legacy are failing to install with this method.
 
 `curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer`
 
-##mysql update for craft:
+## mysql update for craft:
 
 `sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf`
 
@@ -59,7 +59,7 @@ search with "/"
 :wq to write and quit*
 
 
-###Change:
+### Change:
 upload_max_filesize = 256M
 post_max_size = 256M
 max_execution_time = 600
@@ -73,7 +73,7 @@ memory_limit = 256M
 
 `sudo vim /etc/apache2/sites-enabled/`{{SITE_SPECIFIC_FILENAME}}`.conf`
 
-###Add Text:
+### Add Text:
 <VirtualHost \*:80>
     ServerName {{SITE_DOMAIN}}
     ServerAlias <otherdomain>
@@ -98,7 +98,7 @@ memory_limit = 256M
     </Directory>
 </VirtualHost>
 
-##SWAP:
+## SWAP:
 *From root folder:*
 
 `sudo fallocate -l 4G /swapfile`
@@ -118,11 +118,11 @@ memory_limit = 256M
 
 `sudo service apache2 restart`
 
-##Sendmail Service:
+## Sendmail Service:
 
 `sudo apt-get install mailutils`
 
-###Choose:
+### Choose:
 **<Internet Site>**
 *Write in the domain*
 
@@ -136,7 +136,7 @@ memory_limit = 256M
 *Test the mail utilities*
 `sudo echo "This is the body" | mail -s "This is the subject" brian@bahlr.com`
 
-##Create Bitbucket Repository, Finish Setup
+## Create Bitbucket Repository, Finish Setup
 
 *Fork Craftcms-template bitbucket repo into new site-specific repository: https://bitbucket.org/brian_seejepp/craftcms-template/src*
 
@@ -150,15 +150,15 @@ memory_limit = 256M
 Point the Domain to droplet IP from client’s DNS.
 Edit or Add A Record, host @, points to Droplet IP*
 
-###FTP the missing files:
+### FTP the missing files:
 craft/app
 public/uploads
 
-###Create Directories:
+### Create Directories:
 public/cache
 public/imager
 
-###Add server to sequel pro:
+### Add server to sequel pro:
 Basic Settings:
 
 **MySQL Host: 127.0.0.1
@@ -169,7 +169,7 @@ SSH User: root
 SSH Key: Add from computer**
 
 
-###Add Craft Permissions:
+### Add Craft Permissions:
 
 *From Root (remember to change ‘project_name’ to the project directory name):*
 `sudo chown -R www-data:www-data /var/www`
@@ -183,7 +183,7 @@ SSH Key: Add from computer**
 `sudo chmod 774 /var/www/project_name/public/cache`
 `sudo chmod 774 /var/www/project_name/public/imager`
 
-###Craft 3 Permissions (from root):
+### Craft 3 Permissions (from root):
 `sudo chown -R www-data:www-data /var/www`
 `sudo chmod -R 770 /var/www`
 `sudo chmod -R 775 /var/www/html`
